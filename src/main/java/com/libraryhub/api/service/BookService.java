@@ -29,6 +29,9 @@ public class BookService {
             existingBook.setAuthorInitials(updatedBook.getAuthorInitials());
             existingBook.setCopiesCount(updatedBook.getCopiesCount());
             existingBook.setPublicationYear(updatedBook.getPublicationYear());
+            existingBook.setPrice(updatedBook.getPrice());
+            existingBook.setImage(updatedBook.getImage());
+            existingBook.setDescription(updatedBook.getDescription());
 
             return bookRepository.save(existingBook);
         }).orElseThrow(() -> new RuntimeException("Книгу з ID " + id + " не знайдено"));
@@ -44,5 +47,10 @@ public class BookService {
         } else {
             return bookRepository.findAll(Sort.by(direction, "id"));
         }
+    }
+
+    public Book getBookById(Long id) {
+        return bookRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Книгу з ID " + id + " не знайдено"));
     }
 }
